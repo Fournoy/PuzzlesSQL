@@ -34,13 +34,13 @@ To get started, clone the repository and install the dependencies:
 1. Clone the repository:
 
    ```bash
-   git clone https://gitlab.com/bts-ciel-a1/base-project-structure.git
+   git clone https://github.com/Fournoy/PuzzlesSQL.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd base_project_structure
+   cd PuzzlesSQL
    ```
 
 3. Install the required dependencies:
@@ -84,9 +84,7 @@ This package provides a modular approach to SQLi automation. Each function is de
 ## Contact
 
 For questions, feedback, or contributions, feel free to reach out:
-
-- **GitHub Issues:** [https://github.com/username/repository-name/issues](https://github.com/username/repository-name/issues)
-- **Email:** [youremail@example.com](mailto\:youremail@example.com)
+- **Email:** [fournoyfr@protonmail.com](mailto\:fournoyfr@protonmail.com)
 
 ---
 
