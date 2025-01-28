@@ -53,7 +53,7 @@ To get started, clone the repository and install the dependencies:
 
 ## Usage
 
-This package provides a modular approach to SQLi automation. Each function is designed to handle a specific task, and users can combine these functions in the `main.py` file to create a custom script that suits their needs. They are other main file with pre-made programm for specifique type of SQL injection.
+This package provides a modular approach to SQLi automation. Each function is designed to handle a specific task, and users can combine these functions in a `main.py` (or something else) file to create a custom script that suits their needs. They are other main file with pre-made programm for specifique type of SQL injection !
 
 ### Steps to Use:
 
