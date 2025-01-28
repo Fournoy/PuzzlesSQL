@@ -31,10 +31,9 @@ Currently, the package supports **time-based blind SQLi**, but additional SQLi t
 
 To get started, clone the repository and install the dependencies:
 
-1. Clone the repository: (ssh and https)
+1. Clone the repository:
 
    ```bash
-   git clone git@gitlab.com:bts-ciel-a1/base-project-structure.git
    git clone https://gitlab.com/bts-ciel-a1/base-project-structure.git
    ```
 
