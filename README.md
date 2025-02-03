@@ -75,7 +75,6 @@ This package provides a modular approach to SQLi automation. Each function is de
 
 - Add support for other SQLi techniques, such as:
   - Boolean-based blind SQLi
-  - Error-based SQLi
   - Union-based SQLi
   - Out-of-band SQLi
 
