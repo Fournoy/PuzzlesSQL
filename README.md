@@ -77,6 +77,11 @@ This package provides a modular approach to SQLi automation. Each function is de
   - Boolean-based blind SQLi
   - Union-based SQLi
   - Out-of-band SQLi
+### Futur Attacks Enhancement
+   - Add a function to help hide the SQLi from firewall and IDS
+   - Add a functions for executing shell commands with SQLi
+   - Perform remote shell with SQLi
+
 
 ---
 
