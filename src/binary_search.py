@@ -16,7 +16,7 @@ is here to make the difference between good payload and bad payload in the blind
     
     
 """
-def binary_search_for_blind_sqli(result_bool: bool, operator1: str, hight: int, low: int, binary_average: int):
+def binary_search_for_blind_sqli(result_bool: bool, operator1: str, hight: int, low: int, binary_average: int) -> int:
     if result_bool == True and operator1 =='<':
         hight = binary_average - 1
     if result_bool == True and operator1 =='>':
@@ -34,7 +34,7 @@ def binary_search_for_blind_sqli(result_bool: bool, operator1: str, hight: int, 
 
 """
 
-def binary_search_for_error_sqli(status_code: int, operator1: str, hight: int, low: int, binary_average: int):
+def binary_search_for_error_sqli(status_code: int, operator1: str, hight: int, low: int, binary_average: int) -> int:
     if status_code != 200 and operator1 =='<':
         hight = binary_average - 1
     if status_code != 200 and operator1 =='>':
