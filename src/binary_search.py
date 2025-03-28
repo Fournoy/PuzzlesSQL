@@ -49,5 +49,3 @@ def binary_search_for_boolean_sqli(status_code: int, operator1: str, hight: int,
 
 #print(f"Hight: {high_bound}, Low: {low_bound}, Binary Average: {mid_point}")
 
-
-""" Binary search for error based sqli based on data display in web application"""

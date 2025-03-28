@@ -161,5 +161,3 @@ def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_par
           
     return status_code, status_code2
 
-
-"""-------------------------------------------------ERROR BASED SQL INJECTION-------------------------------------------------------"""
