@@ -89,7 +89,7 @@ def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parame
 
 
 
-"""-------------------------------------------------ERROR BASED SQL INJECTION-------------------------------------------------------"""
+"""-------------------------------------------------BOOLEAN BASED SQL INJECTION-------------------------------------------------------"""
 
 
 
@@ -100,7 +100,7 @@ def bad_sql_query(indice: str=None, parameter: str=None):
 
 
 """
-    The function here is used to perform error-based SQLi. 
+    The function here is used to perform boolean-based SQLi. 
     
     ### CONCERNING THE COOKIES OPTION : ####"
     First of all, the default function will use cookies to make SQLi. 
@@ -119,7 +119,7 @@ def bad_sql_query(indice: str=None, parameter: str=None):
 """
 
 
-def sending_payload_for_error_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> int:
+def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> int:
     
     #The payload is in the bad_sql_query function
     
@@ -162,3 +162,4 @@ def sending_payload_for_error_based_SQLi(payload_parameter1 : str, payload_param
     return status_code, status_code2
 
 
+"""-------------------------------------------------ERROR BASED SQL INJECTION-------------------------------------------------------"""

