@@ -2,7 +2,7 @@ from src.payload_and_stuff import sending_payload_for_boolean_based_SQLi
 import sys
 from colorama import Fore, Style
 from src.info_message import output_message, warning_message, successful_message
-from src.binary_search import  binary_search_for_boolean_sqli
+from src.binary_search import  binary_search_coderr
 from src.info_message import welcome_message
 
 
@@ -41,7 +41,7 @@ def get_password_with_boolean_based_SQLi():
         
         while low_bound <= high_bound:
             try:
-                high_bound,low_bound,mid_point = binary_search_for_boolean_sqli(status_code, operator1, high_bound, low_bound, mid_point)
+                high_bound,low_bound,mid_point = binary_search_coderr(status_code, operator1, high_bound, low_bound, mid_point)
                 
                 """The result_control will say if the payload parameter is correct, if it's the case, we change the index"""
                 
