@@ -1,4 +1,4 @@
-from src.payload_and_stuff import sending_payload_for_time_based_SQLi_getv
+from src.sql_function import sending_payload_for_time_based_SQLi_getv
 import sys
 from colorama import Fore, Style
 from src.info_message import output_message, warning_message, successful_message
