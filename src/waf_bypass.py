@@ -9,27 +9,42 @@ import re
     Like the other function, the function here will be very simple.    
 
 """
-def simple_url_enconding(sql_payload: str) -> str:
+
+class URL_encoding: #clas for URL encoding method
+    def __init__(self):
+        pass
+    
+    def simple_url_enconding(sql_payload: str) -> str:
     #basic use of URL_parsing
-    new_sql = sql_payload.replace(" ", "+")
-    new_sql = new_sql.replace("=","%3D")
-    new_sql = new_sql.replace("'","%27")
-    new_sql = new_sql.replace("(","%28")
-    new_sql = new_sql.replace(")","%29")
-    return new_sql
+        new_sql = sql_payload.replace(" ", "+")
+        new_sql = new_sql.replace("=","%3D")
+        new_sql = new_sql.replace("'","%27")
+        new_sql = new_sql.replace("(","%28")
+        new_sql = new_sql.replace(")","%29")
+        return new_sql
 
-def double_url_encoding(sql_payload:str) -> str:
-    new_sql = sql_payload.replace(" ", "+")
-    new_sql = new_sql.replace("=","%253D")
-    new_sql = new_sql.replace("'","%2527")
-    new_sql = new_sql.replace("(","%2528")
-    new_sql = new_sql.replace(")","%2529")
-    return new_sql
+    def double_url_encoding(sql_payload:str) -> str:
+        new_sql = sql_payload.replace(" ", "+")
+        new_sql = new_sql.replace("=","%253D")
+        new_sql = new_sql.replace("'","%2527")
+        new_sql = new_sql.replace("(","%2528")
+        new_sql = new_sql.replace(")","%2529")
+        return new_sql
+
+class HTML_encoding:
+    def __init__(self):
+        pass
+    
+    
+
+class SQL_char:
+    def __init__(self):
+        pass
 
 
-
-
-
+#https://portswigger.net/web-security/essential-skills/obfuscating-attacks-using-encodings#obfuscation-via-xml-encoding
+#https://www.yeswehack.com/fr/learn-bug-bounty/web-application-firewall-bypass
+#https://www.picussecurity.com/resource/blog/waf-bypass-using-json-based-sql-injection-attacks
 
 
 #based on https://owasp.org/www-community/attacks/SQL_Injection_Bypassing_WAF poru exemple.
