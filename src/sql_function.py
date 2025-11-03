@@ -21,7 +21,7 @@ import time
     Make sure to use correctly the variable, in need IT'S POSSIBLE to not use the parameter (look the default parameter of the variable)
      
     ### RETURN VARIABLE ###
-    The result_bool and result_control return variable are very important. The first, the result_cool variable help to know if the first query work, or not.
+    The result_bool and result_control return variable are very important. The first, the result_bool variable help to know if the first query work, or not.
     The function make to query. The first with an "<" or ">" in the query. It will help to know which party we keep after the dichotomy. 
     The second query have an "=" to make sure that the parameter of the first query is good (or not). This is a security request. 
 

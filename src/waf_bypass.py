@@ -9,10 +9,9 @@ import re
     Like the other function, the function here will be very simple.    
 
 """
+from dataclasses import dataclass
 
-class URL_encoding: #clas for URL encoding method
-    def __init__(self):
-        pass
+class URL_encoding: #class for URL encoding method
     
     def simple_url_enconding(sql_payload: str) -> str:
     #basic use of URL_parsing
@@ -30,15 +29,15 @@ class URL_encoding: #clas for URL encoding method
         new_sql = new_sql.replace("(","%2528")
         new_sql = new_sql.replace(")","%2529")
         return new_sql
+    
+
 
 class HTML_encoding:
-    def __init__(self):
         pass
     
     
 
 class SQL_char:
-    def __init__(self):
         pass
 
 

