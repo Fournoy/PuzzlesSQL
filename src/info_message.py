@@ -1,6 +1,8 @@
 
-from colorama import Style, Fore
+
 import time
+
+from colorama import Style, Fore
 
 def output_message(message: str) -> None:
     print(f"{Fore.BLUE}{message}{Style.RESET_ALL}")

@@ -1,7 +1,11 @@
 import requests
 import time
 
-"""
+
+
+
+def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> bool:
+    """
     The function here is used to perform blind time based SQLi. 
     
     ### CONCERNING THE COOKIES OPTION : ####"
@@ -25,10 +29,7 @@ import time
     The function make to query. The first with an "<" or ">" in the query. It will help to know which party we keep after the dichotomy. 
     The second query have an "=" to make sure that the parameter of the first query is good (or not). This is a security request. 
 
-"""
-
-
-def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> bool:
+    """
     
     start_time = time.time()
     r = requests.get(url, cookies=cookies1)
@@ -88,7 +89,9 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
 """-------------------------------------------------BOOLEAN BASED SQL INJECTION-------------------------------------------------------"""
 
 
-"""
+
+def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> int:
+    """
     The function here is used to perform boolean-based SQLi. 
     
     ### CONCERNING THE COOKIES OPTION : ####"
@@ -105,11 +108,7 @@ def sending_payload_for_time_based_SQLi_postv(payload_parameter1 : str, payload_
     The function make to query. The first with an "<" or ">" in the query. It will help to know which party we keep after the dichotomy. 
     The second query have an "=" to make sure that the parameter of the first query is good (or not). This is a security request. 
 
-"""
-
-
-def sending_payload_for_boolean_based_SQLi(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> int:
-
+    """
     r = requests.get(url, cookies=cookies1)
     status_code = r.status_code
     if status_code != 200:

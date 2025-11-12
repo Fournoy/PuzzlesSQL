@@ -1,6 +1,8 @@
 import requests
 import re
 
+from dataclasses import dataclass
+from abc import ABC, abstractmethod
 
 """
     Here you will see different method to bypass WAF. From basic url encoding to playing with URL
@@ -9,12 +11,22 @@ import re
     Like the other function, the function here will be very simple.    
 
 """
-from dataclasses import dataclass
 
-class URL_encoding: #class for URL encoding method
+
+class Encoding(ABC):
+    @abstractmethod
+    def simple_encoding():
+        pass
+
+    @abstractmethod
+    def double_encoding():
+        pass
+
+
+
+class URL_encoding(Encoding): 
     
-    def simple_url_enconding(sql_payload: str) -> str:
-    #basic use of URL_parsing
+    def simple_enconding(sql_payload: str) -> str:
         new_sql = sql_payload.replace(" ", "+")
         new_sql = new_sql.replace("=","%3D")
         new_sql = new_sql.replace("'","%27")
@@ -22,7 +34,7 @@ class URL_encoding: #class for URL encoding method
         new_sql = new_sql.replace(")","%29")
         return new_sql
 
-    def double_url_encoding(sql_payload:str) -> str:
+    def double_encoding(sql_payload:str) -> str:
         new_sql = sql_payload.replace(" ", "+")
         new_sql = new_sql.replace("=","%253D")
         new_sql = new_sql.replace("'","%2527")
@@ -32,12 +44,12 @@ class URL_encoding: #class for URL encoding method
     
 
 
-class HTML_encoding:
+class HTML_encoding(Encoding):
         pass
     
     
 
-class SQL_char:
+class SQL_cha(Encoding):
         pass
 
 
